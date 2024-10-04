@@ -1,0 +1,54 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+"""Indicates exactly one field must be supplied and this field must not be `null`."""
+directive @oneOf on INPUT_OBJECT
+
+input AddGameInput {
+  platform: [String!]!
+  title: String!
+}
+
+type Author {
+  id: ID!
+  name: String!
+  reviews: [Review!]
+  verified: Boolean!
+}
+
+input EditGameInput {
+  platform: [String!]
+  title: String
+}
+
+type Game {
+  id: ID!
+  platform: [String!]!
+  reviews: [Review!]
+  title: String!
+}
+
+type Mutation {
+  addGame(game: AddGameInput!): Game
+  deleteGame(id: ID!): [Game]
+  updateGame(edits: EditGameInput!, id: ID!): Game
+}
+
+type Query {
+  author(id: ID!): Author
+  authors: [Author!]!
+  game(id: ID!): Game
+  games: [Game!]!
+  review(id: ID!): Review
+  reviews: [Review!]!
+}
+
+type Review {
+  author: Author!
+  content: String!
+  game: Game!
+  id: ID!
+  rating: Int!
+}

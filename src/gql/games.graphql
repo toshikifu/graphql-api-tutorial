@@ -1,0 +1,7 @@
+query Games {
+  games {
+    id
+    platform
+    title
+  }
+}
